@@ -1,0 +1,47 @@
+<h3>Buscar Tareas</h3>
+<div style="width: 300px;">
+  <form (ngSubmit)="onSubmit()">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col col-lg-2">
+                <div class="form-group">
+                    <label for="Id">Id</label>
+                    <input type="text" class="form-control" id="id" [(ngModel)]="filter.id" name="id"> 
+                </div>
+            </div>
+            <div class="col col-lg-5">
+                <div class="form-group">
+                    <label for="Descripcion">Descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" [(ngModel)]="filter.descripcion" name="descripcion"> 
+                </div>
+            </div>
+            <div class="col col-lg-3">
+                <div class="form-group">
+                    <label for="Estado">Estado Tarea</label>
+                    <select class="custom-select form-control" [(ngModel)]="filter.estado" id="estado" name="estado">
+                        <option selected [ngValue]="null">Seleccione Estado</option>
+                        <option [ngValue]="true">Resuelta</option>
+                        <option [ngValue]="false">Pendiente</option>
+                    </select> 
+                </div>
+            </div>
+            <div class="col col-lg-2">
+                    <div class="btn-group" style="margin-top: 25px;">
+                        <button type="submit" class="btn btn-success">Buscar</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    
+  </form>
+</div>
+<ul>
+  <li *ngFor="let tarea of tareas">
+    <h4>{{tarea.id}} - {{tarea.descripcion}} 
+        <span class="glyphicon glyphicon-remove" *ngIf='tarea.estado' (click)='updateEstado(false)'>Pendiente</span>
+        <span class="glyphicon glyphicon-ok" *ngIf='!tarea.estado' (click)='updateEstado(true)'>Resuelta</span>
+    </h4>
+  </li>
+</ul>

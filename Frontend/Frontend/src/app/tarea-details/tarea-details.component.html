@@ -1,0 +1,26 @@
+<div *ngIf="tarea">
+    <div>
+        <label>ID: </label> {{tarea.id}}
+    </div>
+    <div>
+        <label>Descripcion: </label> {{tarea.descripcion}}
+    </div>
+    <div>
+        <label>Imagen: </label> {{tarea.imagen}}
+    </div>
+    <div>
+        <label>Estado: </label>
+        <input  type="checkbox" id="estado" required [(ngModel)]="tarea.estado" name="estado" disabled>
+    </div>
+    
+    <!-- <span class="button is-small btn-primary" *ngIf='tarea.estado' (click)='updateEstado(false)'>Pendiente</span>
+
+    <span class="button is-small btn-primary" *ngIf='!tarea.estado' (click)='updateEstado(true)'>Resuelta</span> -->
+    <p>
+        <button type="button"  class="button btn-danger btn-xs" (click)='deleteTarea()'>
+            <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </p>
+
+  <hr/>
+</div>

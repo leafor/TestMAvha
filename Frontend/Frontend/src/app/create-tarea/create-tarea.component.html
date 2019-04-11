@@ -1,0 +1,19 @@
+<h3>Create Tarea</h3>
+<div [hidden]="submitted" style="width: 300px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="Descripcion">Descripcion</label>
+      <input type="text" class="form-control" id="descripcion" required [(ngModel)]="tarea.descripcion" name="descripcion">
+      <label for="Estado">Estado</label>
+      <input type="checkbox" id="estado" required [(ngModel)]="tarea.estado" name="estado">
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>Tarea creada con exito!</h4>
+  <button class="btn btn-success" (click)="newTarea()">Nueva Tarea</button>
+</div>

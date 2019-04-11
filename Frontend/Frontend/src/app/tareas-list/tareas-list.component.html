@@ -1,0 +1,9 @@
+<h1>Tareas</h1>
+
+<div *ngFor="let task of tareas | async" style="width: 300px;">
+  <tarea-details [tarea]='task'></tarea-details>
+</div> 
+
+ <div>
+  <button type="button" class="button btn-danger" (click)='deleteTareas()'>Delete All</button>
+</div>

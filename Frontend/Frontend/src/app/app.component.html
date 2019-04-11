@@ -1,0 +1,10 @@
+<div style="padding: 20px;">
+  <h1 style="color: blue">{{title}}</h1>
+  <h3>{{description}}</h3>
+  <nav>
+    <a routerLink="tareas" class="btn btn-primary active" role="button" routerLinkActive="active">Tareas</a>
+    <a routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active">Nueva Tarea</a>
+    <a routerLink="searchByFilter" class="btn btn-primary active" role="button" routerLinkActive="active">Buscar</a>
+  </nav>
+  <router-outlet></router-outlet>
+</div>
