@@ -4,26 +4,22 @@ import java.io.Serializable;
 
 public class TareaFilter implements Serializable {
 
-	private long id;
-
 	private String descripcion;
 
 	private Boolean estado;
 
+	private long id;
 
 	public TareaFilter() {
 	}
-
-	public TareaFilter(long id, String descripcion, Boolean estado) {
-		this.id = id;
-		this.descripcion = descripcion;
-		this.estado = estado;
-	}
-	
 	public long getId() {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -40,10 +36,6 @@ public class TareaFilter implements Serializable {
 		this.estado = estado;
 	}
 
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	@Override
 	public String toString() {

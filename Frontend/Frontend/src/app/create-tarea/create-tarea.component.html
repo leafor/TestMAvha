@@ -3,9 +3,9 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="Descripcion">Descripcion</label>
-      <input type="text" class="form-control" id="descripcion" required [(ngModel)]="tarea.descripcion" name="descripcion">
+      <input type="text" class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion" name="descripcion">
       <label for="Estado">Estado</label>
-      <input type="checkbox" id="estado" required [(ngModel)]="tarea.estado" name="estado">
+      <input type="checkbox" id="estado" [(ngModel)]="tarea.estado" name="estado">
     </div>
 
 

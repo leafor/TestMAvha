@@ -3,4 +3,7 @@ export class Tarea {
     descripcion: string;
     estado: boolean;
     imagen: string;
+    constructor() {
+        this.estado = false;
+    }
 }

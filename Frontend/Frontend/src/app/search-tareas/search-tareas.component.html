@@ -28,7 +28,10 @@
             </div>
             <div class="col col-lg-2">
                     <div class="btn-group" style="margin-top: 25px;">
-                        <button type="submit" class="btn btn-success">Buscar</button>
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-search"></span>
+                            Buscar
+                        </button>
                     </div>
             </div>
         </div>
@@ -40,8 +43,8 @@
 <ul>
   <li *ngFor="let tarea of tareas">
     <h4>{{tarea.id}} - {{tarea.descripcion}} 
-        <span class="glyphicon glyphicon-remove" *ngIf='tarea.estado' (click)='updateEstado(false)'>Pendiente</span>
-        <span class="glyphicon glyphicon-ok" *ngIf='!tarea.estado' (click)='updateEstado(true)'>Resuelta</span>
+        <span class="glyphicon glyphicon-remove" *ngIf='!tarea.estado'>Pendiente</span>
+        <span class="glyphicon glyphicon-ok" *ngIf='tarea.estado'>Resuelta</span>
     </h4>
   </li>
 </ul>
