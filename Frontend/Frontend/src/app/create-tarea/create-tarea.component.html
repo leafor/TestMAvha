@@ -1,19 +1,34 @@
-<h3>Create Tarea</h3>
+<h3>Crar Nueva Tarea</h3>
 <div [hidden]="submitted" style="width: 300px;">
-  <form (ngSubmit)="onSubmit()">
+  
     <div class="form-group">
-      <label for="Descripcion">Descripcion</label>
-      <input type="text" class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion" name="descripcion">
-      <label for="Estado">Estado</label>
-      <input type="checkbox" id="estado" [(ngModel)]="tarea.estado" name="estado">
+            <label for="Descripcion">Descripcion</label>
+            <input type="text" class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion" name="descripcion">
+            <ng-switchery color="switchery-success" onLabel="Resuelta" offLabel="Pendiente" size="switchery-sm" [(ngModel)]="tarea.estado"></ng-switchery>
     </div>
 
+    <a routerLink="../" class="btn btn-default btn-lg" role="button" style="color: #333;background-color: #e6e6e6;border-color: #adadad;"> Volver</a>
+    <router-outlet></router-outlet>
+    <button type="button" id="crearTarea" title="Crear Tarea" data-toggle="tooltip" class="btn btn-success btn-lg" (click)="ngxSmartModalService.getModal('classicModal').open();">
+       Crear Tarea
+    </button>
 
-    <button type="submit" class="btn btn-success">Submit</button>
+
+
+
+<ngx-smart-modal #myModal identifier="myModal">
+    <form (ngSubmit)="onSubmit()">
+    <h4>Tarea creada con exito!</h4>
+  <a routerLink="../" class="btn btn-success" role="button" > Continuar</a>
+  <router-outlet></router-outlet>
+  <!-- <button (click)="myModal.close()">Close</button> -->
   </form>
+</ngx-smart-modal>
+
 </div>
 
 <div [hidden]="!submitted">
   <h4>Tarea creada con exito!</h4>
-  <button class="btn btn-success" (click)="newTarea()">Nueva Tarea</button>
+  <a routerLink="../" class="btn btn-success btn-lg" role="button" > Continuar</a>
+  <router-outlet></router-outlet>
 </div>

@@ -12,7 +12,6 @@ import { TareasListComponent } from '../tareas-list/tareas-list.component';
 export class TareaDetailsComponent implements OnInit {
 
   @Input() tarea: Tarea;
-
   constructor(private tareaService: TareaService, private listComponent: TareasListComponent) { }
 
   ngOnInit() {

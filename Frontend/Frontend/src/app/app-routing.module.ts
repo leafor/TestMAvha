@@ -5,9 +5,9 @@ import { CreateTareaComponent } from './create-tarea/create-tarea.component';
 import { SearchTareasComponent } from './search-tareas/search-tareas.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'tareas', pathMatch: 'full' },
+    { path: '', redirectTo: '', pathMatch: 'full' },
     { path: 'tareas', component: TareasListComponent },
-    { path: 'add', component: CreateTareaComponent },
+    { path: 'tareas/add', component: CreateTareaComponent },
     { path: 'searchByFilter', component: SearchTareasComponent },
 
 ];

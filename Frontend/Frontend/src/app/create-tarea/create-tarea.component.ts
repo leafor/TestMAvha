@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tarea } from '../tarea';
 import { TareaService } from '../tarea.service';
 
+import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
 @Component({
   selector: 'create-tarea',
   templateUrl: './create-tarea.component.html',
@@ -12,7 +13,7 @@ export class CreateTareaComponent implements OnInit {
   tarea: Tarea = new Tarea();
   submitted = false;
 
-  constructor(private tareaService: TareaService) { }
+  constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,10 @@ export class CreateTareaComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.log(error));
     this.tarea = new Tarea();
   }
+
+//   ngxSmartModalService.getModal('classicModal').onEscape.subscribe((modal: NgxSmartModalComponent) => {
+//       console.log('You just escaped the classicModal!', modal);
+//     });
 
   onSubmit() {
     this.submitted = true;

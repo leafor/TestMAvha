@@ -10,6 +10,8 @@ import { SearchTareasComponent } from './search-tareas/search-tareas.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { NgSwitcheryModule } from 'angular-switchery-ios';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +22,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
   ],
   imports: [
+    NgxSmartModalModule.forRoot(),
+    NgSwitcheryModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,

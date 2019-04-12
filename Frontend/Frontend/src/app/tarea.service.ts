@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 export class TareaService {
 
   private baseUrl = 'http://localhost:8080/api/tareas';
+    private modals: any[] = [];
+
 
   constructor(private http: HttpClient) { }
 
@@ -38,4 +40,15 @@ export class TareaService {
   deleteAll(): Observable<any> {
     return this.http.delete(`${this.baseUrl}` + `/delete`, { responseType: 'text' });
   }
+
+  add(modal: any) {
+        // add modal to array of active modals
+        this.modals.push(modal);
+    }
+
+    remove(id: string) {
+        // remove modal from array of active modals
+        this.modals = this.modals.filter(x => x.id !== id);
+    }
+
 }
