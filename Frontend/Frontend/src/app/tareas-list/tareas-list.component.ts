@@ -17,12 +17,13 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     tareas: Tarea[];
     displayedColumns: string[] = ['id', 'descripcion', 'detalle'];
     // tareas: Observable<Tarea[]>;
-
-    @Input() tarea: Tarea;
+    tarea: Tarea;
+    // @Input() tarea: Tarea;
 
     constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) { }
 
     ngAfterContentChecked(): void {
+        this.tarea = new Tarea();
     }
 
     ngOnInit() {
@@ -62,6 +63,12 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     limpiarFiltros() {
         this.filter = new TareaFilter();
     }
+
+    save() {
+    this.tareaService.createTarea(this.tarea)
+      .subscribe(data => console.log(data), error => console.log(error));
+    this.tarea = new Tarea();
+  }
 
 
     onSubmit() {

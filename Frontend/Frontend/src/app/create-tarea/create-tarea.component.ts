@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Tarea } from '../tarea';
 import { TareaService } from '../tarea.service';
 
-import { NgxSmartModalService, NgxSmartModalComponent } from 'ngx-smart-modal';
+import { NgxSmartModalService } from 'ngx-smart-modal';
+
 @Component({
   selector: 'create-tarea',
   templateUrl: './create-tarea.component.html',

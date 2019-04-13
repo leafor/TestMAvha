@@ -1,99 +1,129 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="col col-lg-1" style="padding-left: 0%">
+            <div class="form-group">
+                <label for="Id">Id</label>
+                <input type="text" class="form-control form-control-lg" id="id" [(ngModel)]="filter.id" placeholder="Ingrese Id"
+                    name="id">
+            </div>
+        </div>
+        <div class="col col-lg-4">
+            <div class="form-group">
+                <label for="Descripcion">Descripcion</label>
+                <input type="text" class="form-control form-control-lg" id="descripcion" [(ngModel)]="filter.descripcion"
+                    placeholder="Ingrese Descripcion" name="descripcion">
+            </div>
+        </div>
+        <div class="col col-lg-2">
+            <div class="form-group">
+                <label for="Estado">Estado Tarea</label>
+                <select class="form-control form-control-lg" title="Seleccione Estado" [(ngModel)]="filter.estado" id="estado"
+                    name="estado">
+                    <option selected [ngValue]="null">Seleccione Estado</option>
+                    <option [ngValue]="true">Resuelta</option>
+                    <option [ngValue]="false">Pendiente</option>
+                </select>
+            </div>
+        </div>
+        <div class="col col-lg-3">
+            <div class="btn-group" style="margin-top: 20px;">
+                <button (click)="searchTareas();" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+            <div class="btn-group" style="margin-top: 20px;">
+                <button class="btn btn-info btn-lg" style="margin-left: 20px;" (click)="limpiarFiltros();">
+                    Limpiar Filtros
+                </button>
+            </div>
+        </div>
+        <div class="col col-lg-2" style="padding-right: 0px;">
+            <div class="btn-group" style="margin-top: 20px;float: right;">
+                <button type="button" id="nuevaTarea" title="Nueva Tarea" data-toggle="tooltip" class="btn btn-success btn-lg"
+                    (click)="ngxSmartModalService.getModal('newTask').open();setNewTarea();">
+                    <span class="glyphicon glyphicon-plus"></span> Nueva Tarea
+                </button>
+            </div>
+        </div>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Detalles</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tarea of tareas">
+                <td>{{tarea.id}}</td>
+                <td>{{tarea.descripcion}}</td>
+                <td>
+                    <h6><span class="badge badge-success" *ngIf='tarea.estado'>Resuelta</span></h6>
+                    <h6><span class="badge badge-warning" *ngIf='!tarea.estado'>Pendiente</span></h6>
+                </td>
+                <td>
+                    <p>
+                        <button type="button" class="button btn-xs" (click)='detailsTarea()'>
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </button>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        <button type="button" class="button btn-xs" (click)='updateTarea()'>
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        <button type="button" class="button btn-danger btn-xs" (click)='deleteTarea(tarea)'>
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div class="container">
-        <form (ngSubmit)="onSubmit()">
-            <div class="col col-lg-1" style="padding-left: 0%">
-                <div class="form-group">
-                    <label for="Id">Id</label>
-                    <input type="text" class="form-control form-control-lg" id="id" [(ngModel)]="filter.id" placeholder="Ingrese Id" name="id"> 
-                </div>
-            </div>
-            <div class="col col-lg-4">
-                <div class="form-group">
-                    <label for="Descripcion">Descripcion</label>
-                    <input type="text" class="form-control form-control-lg" id="descripcion" [(ngModel)]="filter.descripcion" placeholder="Ingrese Descripcion" name="descripcion"> 
-                </div>
-            </div>
-            <div class="col col-lg-2">
-                <div class="form-group">
-                    <label for="Estado">Estado Tarea</label>
-                    <select class="form-control form-control-lg" title="Seleccione Estado" [(ngModel)]="filter.estado" id="estado" name="estado">
-                        <option selected [ngValue]="null">Seleccione Estado</option>
-                        <option [ngValue]="true">Resuelta</option>
-                        <option [ngValue]="false">Pendiente</option>
-                    </select> 
-                </div>
-            </div>
-            <div class="col col-lg-3">
-                    <div class="btn-group" style="margin-top: 20px;">
-                        <button type="submit" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </div>
-                    <div class="btn-group" style="margin-top: 20px;">
-                        <button type="submit" class="btn btn-info btn-lg" style="margin-left: 20px;" (click)="limpiarFiltros();">
-                            Limpiar Filtros
-                        </button>
-                    </div>
-            </div>
-            <div class="col col-lg-2" style="padding-right: 0px;">
-                    <div class="btn-group" style="margin-top: 20px;float: right;">
-                        <!-- <button type="button" id="nuevaTarea" title="Nueva Tarea" data-toggle="tooltip" class="btn btn-success btn-lg" (click)="ngxSmartModalService.getModal('myModal').open();setNewTarea();">
-                            <span class="glyphicon glyphicon-plus"></span> Nueva Tarea
-                        </button> -->
-                        <a routerLink="add" class="btn-success btn-lg" role="button" ><span class="glyphicon glyphicon-plus"></span> Nueva Tarea</a>
-                        <router-outlet></router-outlet>
-                    </div>
-            </div>
-        </form>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Descripcion</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Detalles</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let tarea of tareas">
-                    <td>{{tarea.id}}</td>
-                    <td>{{tarea.descripcion}}</td>
-                    <td>
-                        <h6><span class="badge badge-success" *ngIf='tarea.estado'>Resuelta</span></h6>
-                        <h6><span class="badge badge-warning" *ngIf='!tarea.estado'>Pendiente</span></h6>
-                    </td>
-                    <td>
-                        <p>
-                            <button type="button"  class="button btn-xs" (click)='detailsTarea()'>
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                            </button>
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            <button type="button"  class="button btn-xs" (click)='updateTarea()'>
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </button>
-                        </p>
-                    </td>
-                    <td>
-                        <p>
-                            <button type="button"  class="button btn-danger btn-xs" (click)='deleteTarea(tarea)'>
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+
+<ngx-smart-modal #myModal identifier="newTask">
+    <div class="modal-header">
+        <h3>Crar Nueva Tarea</h3>
     </div>
 
-    
-    
-<ngx-smart-modal #myModal identifier="myModal">
-    
-  <button (click)="myModal.close()">Close</button>
+    <div class="form-group">
+        <label for="Descripcion">Descripcion</label>
+        <input type="text" class="form-control" id="descripcion" [(ngModel)]="tarea.descripcion" name="descripcion">
+        <ng-switchery color="switchery-success" onLabel="Resuelta" offLabel="Pendiente" size="switchery-sm" [(ngModel)]="tarea.estado"></ng-switchery>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default btn-lg" (click)="myModal.close()" style="margin-right:15px;color: #333;background-color: #e6e6e6;border-color: #adadad;">Cerrar</button>
+        <button type="button" id="crearTarea" title="Crear Tarea" data-toggle="tooltip" class="btn btn-success btn-lg"
+            (click)="myModal.close();ngxSmartModalService.getModal('confirmNewTask').open();save();">
+            Crear Tarea
+        </button>
+    </div>
+</ngx-smart-modal>
+
+
+
+<ngx-smart-modal #classicModal identifier="confirmNewTask">
+    <div class="modal-header">
+        <h3>Crar Nueva Tarea</h3>
+    </div>
+        <h4>Tarea creada exitosamente!</h4>
+        <div class="modal-footer">
+        <button type="button" id="crearTarea" title="Crear Tarea" data-toggle="tooltip" class="btn btn-success btn-lg"
+            (click)="classicModal.close();searchTareas();">
+            Continuar
+        </button>
+    </div>
 
 </ngx-smart-modal>

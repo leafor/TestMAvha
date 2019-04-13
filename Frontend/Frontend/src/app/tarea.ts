@@ -5,5 +5,7 @@ export class Tarea {
     imagen: string;
     constructor() {
         this.estado = false;
+        this.descripcion = '';
+        this.imagen = '';
     }
 }
