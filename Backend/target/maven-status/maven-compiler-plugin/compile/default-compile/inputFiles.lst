@@ -1,6 +1,8 @@
 /Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/controller/TareaController.java
 /Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/repo/TareaRepository.java
 /Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/service/TareaService.java
+/Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/model/json/adapter/JsonByteDeSerializer.java
+/Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/model/json/adapter/JsonByteSerializer.java
 /Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/repo/TareaRepositoryCustom.java
 /Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/repo/TareaRepositoryCustomImpl.java
 /Users/Personal/Desktop/TestMAvha/Backend/src/main/java/com/MAvha/test/MAvhaTestApplication.java

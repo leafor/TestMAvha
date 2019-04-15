@@ -7,7 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import com.MAvha.test.model.json.adapter.JsonByteDeSerializer;
+import com.MAvha.test.model.json.adapter.JsonByteSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 @Table(name = "tarea")
@@ -23,8 +29,12 @@ public class Tarea implements Serializable{
 	@Column(name = "estado")
 	private Boolean estado;
 
-	@Column(name = "imagen")
+	@Lob
+	@Column(name = "imagen", length = 1000)
+	@JsonSerialize(using=JsonByteSerializer.class)
+	@JsonDeserialize(using = JsonByteDeSerializer.class)
 	private byte[] imagen;
+	
 
 	public Tarea() {
 	}
