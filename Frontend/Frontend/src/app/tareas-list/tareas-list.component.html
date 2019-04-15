@@ -51,7 +51,7 @@
                 <th scope="col">Descripcion</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Detalles</th>
-                <th scope="col">Editar</th>
+                <th scope="col">Resolver</th>
                 <th scope="col">Borrar</th>
             </tr>
         </thead>
@@ -69,9 +69,7 @@
                     </button>
                 </td>
                 <td>
-                    <button type="button" class="button btn-xs" (click)='updateTarea()'>
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </button>
+                    <ng-switchery color="switchery-success"  size="switchery-sm" (click)="updateEstado(tarea)" [(ngModel)]="tarea.estado"></ng-switchery>
                 </td>
                 <td>
                     <button type="button" class="button btn-danger btn-xs" title="Borrar Tarea" data-toggle="tooltip" (click)='deleteTarea(tarea)'>
