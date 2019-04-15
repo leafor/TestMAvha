@@ -46,6 +46,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
 
 
     private setNewTarea() {
+        this.imageSrc = null;
         this.tarea = new Tarea();
     }
 
