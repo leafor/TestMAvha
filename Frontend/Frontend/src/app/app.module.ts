@@ -11,6 +11,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { NgSwitcheryModule } from 'angular-switchery-ios';
 import { FileSelectDirective } from 'ng2-file-upload';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
   ],
   imports: [
     NgxSmartModalModule.forRoot(),
+    NgbModule,
     NgSwitcheryModule,
     BrowserModule,
     FormsModule,

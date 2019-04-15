@@ -5,6 +5,13 @@ import { TareaFilter } from '../tareaFilter';
 import { TareaService } from '../tarea.service';
 import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { NgxSmartModalService } from 'ngx-smart-modal';
+import { Alert } from 'selenium-webdriver';
+
+
+interface Notif {
+  type: string;
+  message: string;
+}
 
 @Component({
     selector: 'tarea-list',
@@ -14,6 +21,9 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 
 
 export class TareasListComponent implements OnInit, AfterContentChecked {
+
+    alerts: Notif[];
+    staticAlertClosed = false;
     closeResult: string;
     filter: TareaFilter;
     tareas: Tarea[];
@@ -22,8 +32,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     tareaSelected: Tarea;
     public uploader: FileUploader = new FileUploader({url: '', itemAlias: 'photo'});
     imageSrc: any;
-
-    constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) { }
+    constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) {}
 
     ngAfterContentChecked(): void {
     }
@@ -45,12 +54,12 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     }
 
 
-    private setNewTarea() {
+    setNewTarea() {
         this.imageSrc = null;
         this.tarea = new Tarea();
     }
 
-    private searchTareas() {
+    searchTareas() {
         this.tareaService.getTareasByFilter(this.filter)
             .subscribe(tareas => this.tareas = tareas);
     }
@@ -93,27 +102,52 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
 
     save() {
         this.tareaService.createTarea(this.tarea)
-      .subscribe(data => console.log(data), error => console.log(error));
+      .subscribe(data => this.successResponse(data), error => this.errorResponse(error));
     }
 
     handleInputChange(e) {
-    // tslint:disable-next-line:prefer-const
-    let file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-    const pattern = /image-*/;
-    const reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
+        // tslint:disable-next-line:prefer-const
+        let file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+        const pattern = /image-*/;
+        const reader = new FileReader();
+        if (!file.type.match(pattern)) {
+        alert('invalid format');
+        return;
+        }
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
     }
-    reader.onload = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
-  }
-  _handleReaderLoaded(e) {
-    const reader = e.target;
-    this.imageSrc = reader.result;
-    this.tarea.imagen = this.imageSrc;
-    console.log(this.imageSrc);
-  }
+
+    _handleReaderLoaded(e) {
+        const reader = e.target;
+        this.imageSrc = reader.result;
+        this.tarea.imagen = this.imageSrc;
+        console.log(this.imageSrc);
+    }
+
+    errorResponse(error) {
+        console.log(error);
+        this.alerts = Array.from([{
+            type: 'danger',
+            message: error.message,
+        }]);
+        this.searchTareas();
+    }
+
+    successResponse(data) {
+        console.log(data);
+        this.alerts = Array.from([{
+            type: 'success',
+            message: 'La tarea ' + data.descripcion + ' se ha creado correctamente',
+        }]);
+        this.searchTareas();
+        this.staticAlertClosed = false;
+        setTimeout(() => this.staticAlertClosed = true, 5000);
+    }
+
+    close(alert: Notif) {
+        this.alerts.splice(this.alerts.indexOf(alert), 1);
+    }
 
 
 }
