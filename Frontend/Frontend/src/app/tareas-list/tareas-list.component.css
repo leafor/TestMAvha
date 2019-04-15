@@ -9,3 +9,7 @@
         margin-top: 10px;
 
 }
+
+td{
+    vertical-align: middle !important;
+}

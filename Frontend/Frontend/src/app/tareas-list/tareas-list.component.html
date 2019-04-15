@@ -68,7 +68,7 @@
                         <span class="glyphicon glyphicon-eye-open"></span>
                     </button>
                 </td>
-                <td>
+                <td style="padding: 0px;">
                     <ng-switchery color="switchery-success"  size="switchery-sm" (click)="updateEstado(tarea)" [(ngModel)]="tarea.estado"></ng-switchery>
                 </td>
                 <td>
@@ -132,7 +132,7 @@
     <div class="modal-footer">
         <button type="button" id="crearTarea" title="Crear Tarea" data-toggle="tooltip" class="btn btn-success btn-lg"
             (click)="detailsModal.close()">
-            Continuar
+            Cerrar
         </button>
     </div>
 </ngx-smart-modal>

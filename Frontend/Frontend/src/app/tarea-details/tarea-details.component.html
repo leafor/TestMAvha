@@ -10,6 +10,7 @@
     </div>
     <div>
         <label>Estado: </label>
-        <input  type="checkbox" id="estado" required [(ngModel)]="tarea.estado" name="estado" disabled>
+        <span class="badge badge-success" *ngIf='tarea.estado'>Resuelta</span>
+        <span class="badge badge-warning" *ngIf='!tarea.estado'>Pendiente</span>
     </div>
 </div>
