@@ -1,16 +1,16 @@
-import { Component, OnInit, AfterContentChecked} from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { Tarea } from '../tarea';
 import { Media } from '../media';
 import { TareaFilter } from '../tareaFilter';
 import { TareaService } from '../tarea.service';
-import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { Alert } from 'selenium-webdriver';
 
 
 interface Notif {
-  type: string;
-  message: string;
+    type: string;
+    message: string;
 }
 
 @Component({
@@ -30,9 +30,9 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     tarea: Tarea;
     imagen: Media;
     tareaSelected: Tarea;
-    public uploader: FileUploader = new FileUploader({url: '', itemAlias: 'photo'});
+    public uploader: FileUploader = new FileUploader({ url: '', itemAlias: 'photo' });
     imageSrc: any;
-    constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) {}
+    constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) { }
 
     ngAfterContentChecked(): void {
     }
@@ -49,8 +49,8 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
         this.searchTareas();
     }
 
-    detailsTarea( tareaSelected) {
-      this.tareaSelected = tareaSelected;
+    detailsTarea(tareaSelected) {
+        this.tareaSelected = tareaSelected;
     }
 
 
@@ -80,21 +80,24 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
                 data => {
                     console.log(data);
                     this.searchTareas();
+                    this.successResponse('La ha eliminado tarea: ' , tarea);
                 },
-                error => console.log(error));
+                error => this.errorResponse(error));
     }
 
     updateEstado(t: Tarea) {
         this.tarea = t;
-    this.tareaService.updateTarea(this.tarea.id,
-      {id: this.tarea.id, descripcion: this.tarea.descripcion, estado: !this.tarea.estado, imagen: this.tarea.imagen })
-      .subscribe(
-        data => {
-          console.log(data);
-          this.tarea = data as Tarea;
-        },
-        error => console.log(error));
-  }
+        this.tareaService.updateTarea(this.tarea.id,
+            { id: this.tarea.id, descripcion: this.tarea.descripcion, estado: !this.tarea.estado, imagen: this.tarea.imagen })
+            .subscribe(
+                data => {
+                    console.log(data);
+                    this.tarea = data as Tarea;
+                    this.searchTareas();
+                    this.successResponse('La actualizo la tarea: ' , data);
+                },
+                error => console.log(error));
+    }
 
     limpiarFiltros() {
         this.filter = new TareaFilter();
@@ -102,7 +105,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
 
     save() {
         this.tareaService.createTarea(this.tarea)
-      .subscribe(data => this.successResponse(data), error => this.errorResponse(error));
+            .subscribe(data => this.successResponse('La ha creado tarea: ' , data), error => this.errorResponse(error));
     }
 
     handleInputChange(e) {
@@ -111,8 +114,8 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
         const pattern = /image-*/;
         const reader = new FileReader();
         if (!file.type.match(pattern)) {
-        alert('invalid format');
-        return;
+            alert('invalid format');
+            return;
         }
         reader.onload = this._handleReaderLoaded.bind(this);
         reader.readAsDataURL(file);
@@ -134,11 +137,10 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
         this.searchTareas();
     }
 
-    successResponse(data) {
-        console.log(data);
+    successResponse(mensaje, data) {
         this.alerts = Array.from([{
             type: 'success',
-            message: 'La tarea ' + data.descripcion + ' se ha creado correctamente',
+            message: mensaje + data.descripcion,
         }]);
         this.searchTareas();
         this.staticAlertClosed = false;
