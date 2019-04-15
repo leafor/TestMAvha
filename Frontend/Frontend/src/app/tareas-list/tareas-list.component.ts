@@ -80,7 +80,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
                 data => {
                     console.log(data);
                     this.searchTareas();
-                    this.successResponse('La ha eliminado tarea: ' , tarea);
+                    this.successResponse('Se ha eliminado tarea: ' , tarea);
                 },
                 error => this.errorResponse(error));
     }
@@ -94,7 +94,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
                     console.log(data);
                     this.tarea = data as Tarea;
                     this.searchTareas();
-                    this.successResponse('La actualizo la tarea: ' , data);
+                    this.successResponse('Se actualizo la tarea: ' , data);
                 },
                 error => console.log(error));
     }
@@ -105,7 +105,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
 
     save() {
         this.tareaService.createTarea(this.tarea)
-            .subscribe(data => this.successResponse('La ha creado tarea: ' , data), error => this.errorResponse(error));
+            .subscribe(data => this.successResponse('Se ha creado tarea: ' , data), error => this.errorResponse(error));
     }
 
     handleInputChange(e) {

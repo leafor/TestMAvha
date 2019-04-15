@@ -1,16 +1,11 @@
 <div *ngIf="tarea">
-    <div>
-        <label>ID: </label> {{tarea.id}}
-    </div>
-    <div>
-        <label>Descripcion: </label> {{tarea.descripcion}}
-    </div>
-    <div>
-        <img *ngIf='tarea.imagen' [src]="tarea.imagen" style="max-width:300px;max-height:300px"/>
-    </div>
-    <div>
-        <label>Estado: </label>
+    <div class="detail-row"><label>ID: </label> {{tarea.id}}</div>
+    <div class="detail-row"><label>Descripcion: </label> {{tarea.descripcion}}</div>
+    <div class="detail-row"><label>Estado: </label>
         <span class="badge badge-success" *ngIf='tarea.estado'>Resuelta</span>
         <span class="badge badge-warning" *ngIf='!tarea.estado'>Pendiente</span>
+    </div>
+    <div>
+        <img *ngIf='tarea.imagen' [src]="tarea.imagen" style="max-width:100%;"/>
     </div>
 </div>
