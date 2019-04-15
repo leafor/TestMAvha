@@ -95,7 +95,7 @@
         <!-- <input type="file" #imageInput id="imageInput"  [(ngModel)]="tarea.imagen"> -->
         <!-- <input type="file" ng2FileSelect [uploader]="uploader" /> -->
         <div class="image-upload">
-            <img [src]="imageSrc" style="max-width:300px;max-height:300px"/>
+            <img *ngIf='imageSrc' [src]="imageSrc" style="max-width:300px;max-height:300px"/>
             <input name="imageUrl" type="file" accept="image/*" (change)="handleInputChange($event)" />       
         </div> 
     </div>

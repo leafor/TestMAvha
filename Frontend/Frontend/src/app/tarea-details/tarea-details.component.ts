@@ -17,24 +17,4 @@ export class TareaDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateEstado(estado: boolean) {
-    this.tareaService.updateTarea(this.tarea.id,
-      { descripcion: this.tarea.descripcion, estado: estado, imagen: this.tarea.imagen })
-      .subscribe(
-        data => {
-          console.log(data);
-          this.tarea = data as Tarea;
-        },
-        error => console.log(error));
-  }
-
-  deleteTarea() {
-    this.tareaService.deleteTarea(this.tarea.id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.listComponent.reloadData();
-        },
-        error => console.log(error));
-  }
 }
