@@ -1,9 +1,9 @@
-import { Component, OnInit, AfterContentChecked, Input } from '@angular/core';
+import { Component, OnInit, AfterContentChecked} from '@angular/core';
 import { Tarea } from '../tarea';
+import { Media } from '../media';
 import { TareaFilter } from '../tareaFilter';
 import { TareaService } from '../tarea.service';
-import { Observable } from 'rxjs';
-
+import {  FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 
 @Component({
@@ -11,25 +11,39 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
     templateUrl: './tareas-list.component.html',
     styleUrls: ['./tareas-list.component.css']
 })
+
+
 export class TareasListComponent implements OnInit, AfterContentChecked {
     closeResult: string;
     filter: TareaFilter;
     tareas: Tarea[];
-    displayedColumns: string[] = ['id', 'descripcion', 'detalle'];
-    // tareas: Observable<Tarea[]>;
     tarea: Tarea;
-    // @Input() tarea: Tarea;
+    imagen: Media;
+    tareaSelected: Tarea;
+    public uploader: FileUploader = new FileUploader({url: '', itemAlias: 'photo'});
+    imageSrc: any;
 
     constructor(private tareaService: TareaService, public ngxSmartModalService: NgxSmartModalService) { }
 
     ngAfterContentChecked(): void {
-        this.tarea = new Tarea();
+    }
+
+    onFileChanged(event) {
+        const file = event.target.files[0];
+        this.tarea.imagen = file;
     }
 
     ngOnInit() {
         this.filter = new TareaFilter();
+        this.tarea = new Tarea();
+        this.tareaSelected = new Tarea();
         this.searchTareas();
     }
+
+    detailsTarea( tareaSelected) {
+      this.tareaSelected = tareaSelected;
+    }
+
 
     private setNewTarea() {
         this.tarea = new Tarea();
@@ -65,13 +79,28 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     }
 
     save() {
-    this.tareaService.createTarea(this.tarea)
+        this.tareaService.createTarea(this.tarea)
       .subscribe(data => console.log(data), error => console.log(error));
-    this.tarea = new Tarea();
+    }
+
+    handleInputChange(e) {
+    // tslint:disable-next-line:prefer-const
+    let file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    const pattern = /image-*/;
+    const reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid format');
+      return;
+    }
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e) {
+    const reader = e.target;
+    this.imageSrc = reader.result;
+    this.tarea.imagen = this.imageSrc;
+    console.log(this.imageSrc);
   }
 
 
-    onSubmit() {
-        this.searchTareas();
-    }
 }

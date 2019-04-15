@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,15 @@ public class TareaServiceImpl implements TareaService{
 		return tareas;
 	}
 	
-	public Tarea createTask(Tarea tarea) {
-		Tarea _tarea = repository.save(tarea);
+	public Tarea createTask(Tarea tarea) throws Exception{
+		Tarea _tarea = new Tarea();
+		try {
+			_tarea = repository.save(tarea);
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			throw new Exception(e);
+		}
 		return _tarea;
 	}
 	

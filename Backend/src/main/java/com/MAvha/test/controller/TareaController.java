@@ -37,9 +37,9 @@ public class TareaController {
 	}
 
 	@PostMapping(value = "/tareas/create")
-	public Tarea postTarea(@RequestBody Tarea tarea) {
+	public ResponseEntity<Tarea> postTarea(@RequestBody Tarea tarea) throws Exception{
 		Tarea _tarea = tareaService.createTask(new Tarea(tarea.getDescripcion(), tarea.getEstado(),tarea.getImagen()));
-		return _tarea;
+		return new ResponseEntity<Tarea>(_tarea,HttpStatus.OK);
 	}
 
 	@DeleteMapping("/tareas/{id}")

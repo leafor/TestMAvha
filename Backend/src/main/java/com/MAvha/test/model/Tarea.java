@@ -24,12 +24,12 @@ public class Tarea implements Serializable{
 	private Boolean estado;
 
 	@Column(name = "imagen")
-	private String imagen;
+	private byte[] imagen;
 
 	public Tarea() {
 	}
 
-	public Tarea(String descripcion, Boolean estado,String imagen) {
+	public Tarea(String descripcion, Boolean estado,byte[] imagen) {
 		this.descripcion = descripcion;
 		this.estado = estado;
 		this.imagen = imagen;
@@ -55,11 +55,11 @@ public class Tarea implements Serializable{
 		this.estado = estado;
 	}
 
-	public String getImagen() {
+	public byte[] getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(String imagen) {
+	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
 

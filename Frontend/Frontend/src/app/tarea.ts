@@ -2,7 +2,7 @@ export class Tarea {
     id: number;
     descripcion: string;
     estado: boolean;
-    imagen: string;
+    imagen: any;
     constructor() {
         this.estado = false;
         this.descripcion = '';
