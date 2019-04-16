@@ -88,7 +88,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     updateEstado(t: Tarea) {
         this.tarea = t;
         this.tareaService.updateTarea(this.tarea.id,
-            { id: this.tarea.id, descripcion: this.tarea.descripcion, estado: !this.tarea.estado })
+            { id: this.tarea.id, descripcion: this.tarea.descripcion, estado: !this.tarea.estado, imagen: this.tarea.imagen })
             .subscribe(
                 data => {
                     console.log(data);
