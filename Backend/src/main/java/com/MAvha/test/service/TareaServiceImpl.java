@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +55,7 @@ public class TareaServiceImpl implements TareaService{
 			Tarea _tarea = tareaData.get();
 			_tarea.setDescripcion(tarea.getDescripcion());
 			_tarea.setEstado(tarea.getEstado());
-			_tarea.setImagen(tarea.getImagen());
+//			_tarea.setImagen(tarea.getImagen());
 			return repository.save(tarea);
 		} else {
 			return null;
