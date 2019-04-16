@@ -10,7 +10,7 @@
 
 	<name>SpringRestMySQL</name>
 	<description>Demo project for Spring Boot - REST -MySQL</description>
-
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

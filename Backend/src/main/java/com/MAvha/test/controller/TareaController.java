@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MAvha.test.model.Tarea;
@@ -56,8 +57,8 @@ public class TareaController {
 		return new ResponseEntity<>("All tasks have been deleted!", HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/tareas/searchByFilter")
-	public List<Tarea> searchByFilter(@RequestBody TareaFilter filter) {
+	@GetMapping(value = "/tareas/searchByFilter")
+	public List<Tarea> searchByFilter(TareaFilter filter) {
 		return tareaService.searchByFilter(filter);
 	}
 

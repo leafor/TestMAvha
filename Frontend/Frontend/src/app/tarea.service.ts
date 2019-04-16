@@ -33,8 +33,19 @@ export class TareaService {
     return this.http.put(`${this.baseUrl}/${id}`, value);
   }
 
-  getTareasByFilter(tareaFilter: Object): Observable<any> {
-    return this.http.post(`${this.baseUrl}` + `/searchByFilter`, tareaFilter);
+  getTareasByFilter(tareaFilter: any): Observable<any> {
+    let params = new HttpParams();
+    if (tareaFilter != null) {
+        if (tareaFilter.id != null && tareaFilter.id !== '') {
+            params = params.append('id', tareaFilter.id);
+        }
+        if (tareaFilter.descripcion != null && tareaFilter.descripcion !== '') {
+            params = params.append('descripcion', tareaFilter.descripcion);
+        }
+        if (tareaFilter.estado != null && tareaFilter.estado !== '') {
+            params = params.append('estado', tareaFilter.estado);
+        }}
+    return this.http.get(`${this.baseUrl}` + `/searchByFilter`, { params: params });
   }
 
   deleteAll(): Observable<any> {
