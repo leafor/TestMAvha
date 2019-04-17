@@ -86,9 +86,8 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
     }
 
     updateEstado(t: Tarea) {
-        this.tarea = t;
-        this.tareaService.updateTarea(this.tarea.id,
-            { id: this.tarea.id, descripcion: this.tarea.descripcion, estado: !this.tarea.estado, imagen: this.tarea.imagen })
+        t.estado = !t.estado;
+        this.tareaService.updateTarea( t )
             .subscribe(
                 data => {
                     console.log(data);
@@ -96,7 +95,7 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
                     this.searchTareas();
                     this.successResponse('Se actualizo la tarea: ' , data);
                 },
-                error => console.log(error));
+                error => this.errorResponse(error));
     }
 
     limpiarFiltros() {
@@ -132,9 +131,11 @@ export class TareasListComponent implements OnInit, AfterContentChecked {
         console.log(error);
         this.alerts = Array.from([{
             type: 'danger',
-            message: error.message,
+            message: error.error.message,
         }]);
         this.searchTareas();
+        this.staticAlertClosed = false;
+        setTimeout(() => this.staticAlertClosed = true, 5000);
     }
 
     successResponse(mensaje, data) {

@@ -29,8 +29,8 @@ export class TareaService {
     return this.http.get(`${this.baseUrl}`);
   }
 
-  updateTarea(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  updateTarea(tarea: Object): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/update`, tarea);
   }
 
   getTareasByFilter(tareaFilter: any): Observable<any> {

@@ -30,7 +30,7 @@ public class Tarea implements Serializable{
 	private Boolean estado;
 
 	@Lob
-	@Column(name = "imagen", length = 1000)
+	@Column(name = "imagen", length = 20000)
 	@JsonSerialize(using=JsonByteSerializer.class)
 	@JsonDeserialize(using = JsonByteDeSerializer.class)
 	private byte[] imagen;
@@ -39,6 +39,13 @@ public class Tarea implements Serializable{
 	public Tarea() {
 	}
 
+	public Tarea(Long id, String descripcion, Boolean estado,byte[] imagen) {
+		this.descripcion = descripcion;
+		this.estado = estado;
+		this.imagen = imagen;
+		this.id = id;
+	}
+	
 	public Tarea(String descripcion, Boolean estado,byte[] imagen) {
 		this.descripcion = descripcion;
 		this.estado = estado;

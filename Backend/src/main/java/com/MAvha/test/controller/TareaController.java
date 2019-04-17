@@ -39,7 +39,7 @@ public class TareaController {
 
 	@PostMapping(value = "/tareas/create")
 	public ResponseEntity<Tarea> postTarea(@RequestBody Tarea tarea) throws Exception{
-		Tarea _tarea = tareaService.createTask(new Tarea(tarea.getDescripcion(), tarea.getEstado(),tarea.getImagen()));
+		Tarea _tarea = tareaService.saveTask(new Tarea(tarea.getDescripcion(), tarea.getEstado(),tarea.getImagen()));
 		return new ResponseEntity<Tarea>(_tarea,HttpStatus.OK);
 	}
 
@@ -54,7 +54,7 @@ public class TareaController {
 	public ResponseEntity<String> deleteAllTasks() {
 		System.out.println("Delete All Tasks...");
 		tareaService.deleteAll();
-		return new ResponseEntity<>("All tasks have been deleted!", HttpStatus.OK);
+		return new ResponseEntity<String>("All tasks have been deleted!", HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/tareas/searchByFilter")
@@ -62,14 +62,10 @@ public class TareaController {
 		return tareaService.searchByFilter(filter);
 	}
 
-	@PutMapping("/tareas/{id}")
-	public ResponseEntity<Tarea> updateTarea(@PathVariable("id") long id, @RequestBody Tarea tarea) {
-		System.out.println("Update Task with ID = " + id + "...");
-		Tarea tareaUpdate = tareaService.updateTask(id, tarea);
-		if (tareaUpdate!=null) {
-			return new ResponseEntity<>(tareaUpdate, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+	@PutMapping("/tareas/update")
+	public ResponseEntity<Tarea> updateTarea(@RequestBody Tarea tarea) throws Exception {
+		System.out.println("Update Task with ID = " + tarea.getId() + "...");
+		Tarea tareaUpdate = tareaService.updateTask(tarea);
+			return new ResponseEntity<Tarea>(tareaUpdate, HttpStatus.OK);
 	}
 }

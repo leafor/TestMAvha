@@ -11,6 +11,8 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.MAvha.test.model.Tarea;
 import com.MAvha.test.model.TareaFilter;
 
@@ -46,6 +48,13 @@ public class TareaRepositoryCustomImpl  implements TareaRepositoryCustom{
  
         return entityManager.createQuery(query)
 	            .getResultList();
+	}
+	
+	@Transactional
+	@Override
+	public int updateTaks(Tarea t) {
+		return this.entityManager.
+		createQuery("update Tarea set estado = "+t.getEstado()+" where id = "+t.getId()+"").executeUpdate();
 	}
 
 }

@@ -1,9 +1,11 @@
 package com.MAvha.test.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.hsqldb.HsqlException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class TareaServiceImpl implements TareaService{
 		return tareas;
 	}
 	
-	public Tarea createTask(Tarea tarea) throws Exception{
+	public Tarea saveTask(Tarea tarea) throws Exception{
 		Tarea _tarea = new Tarea();
 		try {
 			_tarea = repository.save(tarea);
@@ -49,16 +51,25 @@ public class TareaServiceImpl implements TareaService{
 		return tareas;
 	}
 	
-	public Tarea updateTask(long id,Tarea tarea) {
-		Optional<Tarea> tareaData = repository.findById(id);
-		if (tareaData.isPresent()) {
-			Tarea _tarea = tareaData.get();
-			_tarea.setDescripcion(tarea.getDescripcion());
-			_tarea.setEstado(tarea.getEstado());
-//			_tarea.setImagen(tarea.getImagen());
-			return repository.save(tarea);
-		} else {
-			return null;
+	public Tarea updateTask(Tarea tarea) throws SQLException, HsqlException{
+		try {
+//			Optional<Tarea> tareaData = repository.findById(tarea.getId());
+//			if (tareaData.isPresent()) {
+//				Tarea _tarea = tareaData.get();
+//				_tarea.setDescripcion(tarea.getDescripcion());
+//				_tarea.setEstado(tarea.getEstado());
+//				_tarea.setImagen(tarea.getImagen());
+//				return repository.save(tarea);
+//			} else {
+//				return null;
+//			}
+			int i = repository.updateTaks(tarea);
+			return new Tarea();
 		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+			throw new SQLException(e);
+		}
+		
 	}
 }
