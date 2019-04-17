@@ -66,6 +66,6 @@ public class TareaController {
 	public ResponseEntity<Tarea> updateTarea(@RequestBody Tarea tarea) throws Exception {
 		System.out.println("Update Task with ID = " + tarea.getId() + "...");
 		Tarea tareaUpdate = tareaService.updateTask(tarea);
-			return new ResponseEntity<Tarea>(tareaUpdate, HttpStatus.OK);
+			return new ResponseEntity<Tarea>(tarea, HttpStatus.OK);
 	}
 }
