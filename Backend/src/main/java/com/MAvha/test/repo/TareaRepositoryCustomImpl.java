@@ -38,7 +38,7 @@ public class TareaRepositoryCustomImpl  implements TareaRepositoryCustom{
         	predicates.add(cb.equal(estadoPath, ((TareaFilter)filter).getEstado()));
         }
         if(((TareaFilter) filter).getDescripcion()!=null && ((TareaFilter) filter).getDescripcion()!="") {
-        	predicates.add(cb.like(descripcionPath, ((TareaFilter)filter).getDescripcion()));
+        	predicates.add(cb.like(descripcionPath, "%" +((TareaFilter)filter).getDescripcion() + "%"));
         }
         if(((TareaFilter)filter).getId()!=0l) {
         	predicates.add(cb.equal(idPath, ((TareaFilter)filter).getId()));
